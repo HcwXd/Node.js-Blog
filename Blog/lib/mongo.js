@@ -50,3 +50,26 @@ mongolass.plugin('addCreatedAt', {
     return result
   }
 })
+
+exports.Post = mongolass.model('Post', {
+  author: {
+    type: Mongolass.Types.ObjectId,
+    required: true
+  },
+  title: {
+    type: 'string',
+    required: true
+  },
+  content: {
+    type: 'string',
+    required: true
+  },
+  pv: {
+    type: 'number',
+    default: 0
+  }
+})
+exports.Post.index({
+  author: 1,
+  _id: -1
+}).exec() // 按创建时间降序查看用户的文章列表
