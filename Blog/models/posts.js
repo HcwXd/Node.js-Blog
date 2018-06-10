@@ -117,9 +117,10 @@ module.exports = {
     }).exec()
   },
 
-  // 通过文章 id 删除一篇文章
-  delPostById: function delPostById(postId) {
+  // 通过用户 id 和文章 id 删除一篇文章
+  delPostById: function delPostById(postId, author) {
     return Post.deleteOne({
+        author: author,
         _id: postId
       })
       .exec()
