@@ -10,14 +10,19 @@ const checkNotLogin = require('../middlewares/check').checkNotLogin
 // GET /signup 注册页
 router.get('/', checkNotLogin, function (req, res, next) {
     res.render('signup')
+    console.log("ok");
+
 })
 
 // POST /signup 用户注册
 router.post('/', checkNotLogin, function (req, res, next) {
+    console.log("oo");
+
     const name = req.fields.name
     const gender = req.fields.gender
     const bio = req.fields.bio
     const avatar = req.files.avatar.path.split(path.sep).pop()
+    console.log(avatar)
     let password = req.fields.password
     const repassword = req.fields.repassword
 
