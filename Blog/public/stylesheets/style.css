@@ -12,8 +12,13 @@ a:hover {
 }
 
 .button {
-  background-color: #4fc08d !important;
-  color: #fff !important;
+  background-color: #03a87c !important;
+  color: #ffffff !important;
+  font-weight: normal;
+}
+
+.button:hover {
+  opacity: 0.9;
 }
 
 .avatar {
