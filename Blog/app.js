@@ -53,6 +53,7 @@ app.use(function (req, res, next) {
 routes(app)
 
 // listen on port number from config file and log the app name from package.json 
-app.listen(config.port, function () {
-  console.log(`${pkg.name} listening on port ${config.port}`)
+const port = process.env.PORT || config.port
+app.listen(port, function () {
+  console.log(`${pkg.name} listening on port ${port}`)
 })
