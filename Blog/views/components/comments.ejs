@@ -3,12 +3,12 @@
   <div class="eight wide column">
     <div class="ui segment">
       <div class="ui minimal comments">
-        <h3 class="ui dividing header">留言</h3>
+        <h3 class="ui dividing header">Comments</h3>
 
         <% comments.forEach(function (comment) { %>
           <div class="comment">
             <span class="avatar">
-              <img src="/img/<%= comment.author.avatar %>">
+              <img src="/images/<%= comment.author.avatar %>">
             </span>
             <div class="content">
               <a class="author" href="/posts?author=<%= comment.author._id %>">
@@ -25,7 +25,7 @@
 
               <% if (user && comment.author._id && user._id.toString() === comment.author._id.toString()) { %>
                 <div class="actions">
-                  <a class="reply" href="/comments/<%= comment._id %>/remove">删除</a>
+                  <a class="reply" href="/comments/<%= comment._id %>/remove">Delete</a>
                 </div>
                 <% } %>
             </div>
@@ -38,7 +38,7 @@
                 <div class="field">
                   <textarea name="content"></textarea>
                 </div>
-                <input type="submit" class="ui icon button" value="留言" />
+                <input type="submit" class="ui icon button" value="Comments" />
               </form>
               <% } %>
 
