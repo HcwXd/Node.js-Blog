@@ -5,12 +5,12 @@ const router = express.Router()
 const UserModel = require('../models/users')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
-// GET /signin 登录页
+// GET /signin
 router.get('/', checkNotLogin, function (req, res, next) {
     res.render('signin')
 })
 
-// POST /signin 用户登录
+// POST /signin
 router.post('/', checkNotLogin, function (req, res, next) {
     const name = req.fields.name
     const password = req.fields.password
@@ -18,10 +18,10 @@ router.post('/', checkNotLogin, function (req, res, next) {
     // 校验参数
     try {
         if (!name.length) {
-            throw new Error('请填写用户名')
+            throw new Error('Please input username')
         }
         if (!password.length) {
-            throw new Error('请填写密码')
+            throw new Error('Please input password')
         }
     } catch (e) {
         req.flash('error', e.message)
@@ -31,15 +31,15 @@ router.post('/', checkNotLogin, function (req, res, next) {
     UserModel.getUserByName(name)
         .then(function (user) {
             if (!user) {
-                req.flash('error', '用户不存在')
+                req.flash('error', 'User does not exist')
                 return res.redirect('back')
             }
             // 检查密码是否匹配
             if (sha1(password) !== user.password) {
-                req.flash('error', '用户名或密码错误')
+                req.flash('error', 'Password or username is wrong')
                 return res.redirect('back')
             }
-            req.flash('success', '登录成功')
+            req.flash('success', 'Sign in successfully')
             // 用户信息写入 session
             delete user.password
             req.session.user = user

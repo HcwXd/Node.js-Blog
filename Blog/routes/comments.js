@@ -4,16 +4,15 @@ const router = express.Router()
 const checkLogin = require('../middlewares/check').checkLogin
 const CommentModel = require('../models/comments')
 
-// POST /comments 创建一条留言
+// POST /comments
 router.post('/', checkLogin, function (req, res, next) {
     const author = req.session.user._id
     const postId = req.fields.postId
     const content = req.fields.content
 
-    // 校验参数
     try {
         if (!content.length) {
-            throw new Error('请填写留言内容')
+            throw new Error('Please input your comments')
         }
     } catch (e) {
         req.flash('error', e.message)
@@ -28,14 +27,14 @@ router.post('/', checkLogin, function (req, res, next) {
 
     CommentModel.create(comment)
         .then(function () {
-            req.flash('success', '留言成功')
-            // 留言成功后跳转到上一页
+            req.flash('success', 'Comment successfully')
+
             res.redirect('back')
         })
         .catch(next)
 })
 
-// GET /comments/:commentId/remove 删除一条留言
+// GET /comments/:commentId/remove
 router.get('/:commentId/remove', checkLogin, function (req, res, next) {
     const commentId = req.params.commentId
     const author = req.session.user._id
@@ -43,15 +42,15 @@ router.get('/:commentId/remove', checkLogin, function (req, res, next) {
     CommentModel.getCommentById(commentId)
         .then(function (comment) {
             if (!comment) {
-                throw new Error('留言不存在')
+                throw new Error('Comment does not exist')
             }
             if (comment.author.toString() !== author.toString()) {
-                throw new Error('没有权限删除留言')
+                throw new Error('Permission denied')
             }
             CommentModel.delCommentById(commentId)
                 .then(function () {
-                    req.flash('success', '删除留言成功')
-                    // 删除成功后跳转到上一页
+                    req.flash('success', 'Delete comment successfully')
+
                     res.redirect('back')
                 })
                 .catch(next)
